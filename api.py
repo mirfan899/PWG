@@ -9,30 +9,30 @@ from espnet2.bin.tts_inference import Text2Speech
 from parallel_wavegan.utils import download_pretrained_model
 from parallel_wavegan.utils import load_model
 
+fs = 22050
+tag = 'kan-bayashi/ljspeech_tacotron2'
+vocoder_tag = "ljspeech_parallel_wavegan.v1"
+
+d = ModelDownloader()
+text2speech = Text2Speech(
+    **d.download_and_unpack(tag),
+    device="cuda",
+    # Only for Tacotron 2
+    threshold=0.5,
+    minlenratio=0.0,
+    maxlenratio=10.0,
+    use_att_constraint=False,
+    backward_window=1,
+    forward_window=3,
+    # Only for FastSpeech & FastSpeech2
+    speed_control_alpha=1.0,
+)
+text2speech.spc2wav = None
+vocoder = load_model(download_pretrained_model(vocoder_tag)).to("cuda").eval()
+vocoder.remove_weight_norm()
+
 
 def generate_wav(sentence):
-    fs = 22050
-    tag = 'kan-bayashi/ljspeech_tacotron2'
-    vocoder_tag = "ljspeech_parallel_wavegan.v1"
-
-    d = ModelDownloader()
-    text2speech = Text2Speech(
-        **d.download_and_unpack(tag),
-        device="cuda",
-        # Only for Tacotron 2
-        threshold=0.5,
-        minlenratio=0.0,
-        maxlenratio=10.0,
-        use_att_constraint=False,
-        backward_window=1,
-        forward_window=3,
-        # Only for FastSpeech & FastSpeech2
-        speed_control_alpha=1.0,
-    )
-    text2speech.spc2wav = None
-    vocoder = load_model(download_pretrained_model(vocoder_tag)).to("cuda").eval()
-    vocoder.remove_weight_norm()
-
     start = time.time()
     # synthesis
     total_secs = 0
