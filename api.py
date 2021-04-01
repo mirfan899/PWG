@@ -44,7 +44,7 @@ def generate_wav(sentence):
     print("Time in seconds = {}".format(total_secs))
     # save the file with unique uuid
     uid = str(uuid.uuid1())[:8]
-    soundfile.write("outputs/{}.wav".format(), wav.detach().numpy(), fs, "PCM_16")
+    soundfile.write("outputs/{}.wav".format(uid), wav.detach().numpy(), fs, "PCM_16")
     return {"sentence": sentence, "uuid": uid}
 
 
