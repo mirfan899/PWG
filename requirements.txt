@@ -2,3 +2,5 @@ espnet==0.9.7
 parallel_wavegan==0.4.8
 espnet_model_zoo
 torch==1.7.0
+flask
+flask-restful
