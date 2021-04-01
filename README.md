@@ -18,5 +18,5 @@ Same goes for cpu `test_cpu.py` file, it will ask for input. Provide sentences t
 as `out.wav` file.
 
 ```shell
-curl -d '{"sentence":"this is a sentence"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:5000/api/wav
+curl -d '{"sentence":"this is a sentence"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:5000/api/pwg
 ```
