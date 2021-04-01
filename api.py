@@ -40,11 +40,10 @@ def generate_wav(sentence):
         wav, c, *_ = text2speech(sentence)
         wav = vocoder.inference(c)
     total_secs = round(time.time() - start)
-    print(total_secs)
     print("Time in seconds = {}".format(total_secs))
     # save the file with unique uuid
     uid = str(uuid.uuid1())[:8]
-    soundfile.write("outputs/{}.wav".format(uid), wav.detach().numpy(), fs, "PCM_16")
+    soundfile.write("outputs/{}.wav".format(uid), wav.cpu().numpy(), fs, "PCM_16")
     return {"sentence": sentence, "uuid": uid}
 
 
