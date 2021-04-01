@@ -18,6 +18,8 @@ as `out.wav` file.
 Same goes for cpu `test_cpu.py` file, it will ask for input. Provide sentences to generate the audio. It will save the audio
 as `out.wav` file.
 
+## Testing.
+run the command in terminal to get the output or run the Python script `test_api.py` to get the output. 
 ```shell
 curl -d '{"sentence":"this is a sentence"}' -H "Content-Type: application/json" -X POST http://127.0.0.1:5000/api/pwg
 ```
